@@ -8,3 +8,6 @@ A Translator / Gibberish module for python that was written way past my bedtime,
     became:
 
     Vovänondod dodenonnona momenoninongog i gogobobbobloledody-Gogookok!
+
+
+http://en.wikipedia.org/wiki/R%C3%B6varspr%C3%A5ket
