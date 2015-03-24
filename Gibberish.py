@@ -35,30 +35,41 @@ class Gibberish:
                           'swahili':'sw','swedish':'sv','thai':'th','turkish':'tr','ukrainian':'uk',
                           'vietnamese':'vi'}
         
-        
-    def Gibberish(self):
+  
+    def gibber(self):
+        """Maps all consonants x -> xox
+        """   
         for x in self.consonants:
             if (x in self.sentence):
-                self.sentence=self.sentence.replace(x, x+'o'+unicode(x).lower())    
-    def deGibberish(self):
+        	    self.sentence = self.sentence.replace(x, x+'o'+unicode(x).lower())
+    
+    def degibber(self):
+    	"""From left to right in a sentence, maps all three letter xox pairs to x
+    	(x consonant)
+    	"""
         for x in self.consonants:
             if (x in self.sentence):
                 self.sentence=self.sentence.replace(x+'o'+unicode(x).lower(), x)    
  
     def get_sentence(self):
+    	"""Gets the sentence it's working on
+    	"""
         return self.sentence
     
-    def Gibberish_translate(self, language=None):
+    def translate(self, language=None):
+    	"""Translate the sentence it is workig on to a different language
+    	"""
         gs= goslate.Goslate()
         if(language is None):
             self.sentence = gs.translate(self.get_sentence(), self.languages['english'])
         else:
             self.sentence = gs.translate(self.get_sentence(), self.languages[language.lower()])
 
+
 def main():
     N_ARGS = len(sys.argv)
-    if (N_ARGS >= 3):
-        sentence, language = sys.argv[1], sys.argv[2]
+    if (N_ARGS >= 4):
+        command, sentence, language,  = sys.argv[1], sys.argv[2], sys.argv[3]
     else:
         sentence = None
         language = "English"
@@ -68,12 +79,13 @@ def main():
     
     gib = Gibberish(sentence)
 
-    print sentence
-
-    print "became: \n"
-
-    gib.Gibberish_translate(language)
-    gib.Gibberish()
+    if ((command == '-d') or (command == 'degibber')):
+    	gib.degibber()
+        gib.translate(language)
+    elif ((command == '-g') or (command == 'gibber')):
+    	gib.translate(language)
+    	gib.gibber()
+    
     print gib.get_sentence()
 
 main()
